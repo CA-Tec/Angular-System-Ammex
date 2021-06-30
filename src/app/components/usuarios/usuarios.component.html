@@ -1,0 +1,83 @@
+<div class="container-fluid" style="margin-top:68px">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mt-2">
+        <div class="card-header">
+          <h4><i class="fas fa-user-plus"></i> Agregar Usuario</h4>
+        </div>
+        <div class="card-body">
+          <form #usuarioForm="ngForm">
+            <input type="hidden" name="_id" [(ngModel)]="usuarioService.selectedUsuario._id">
+            <div class="form-group">
+              <label for="nombreUsuario">Nombre:</label>
+              <input class="form-control" type="text" name="nombreUsuario" #nombreUsuario="ngModel" [(ngModel)]="usuarioService.selectedUsuario.nombreUsuario" placeholder="Nombre de usuario" required>
+            <span *ngIf="nombreUsuario.touched && !nombreUsuario.valid">
+                <div class="alert alert-danger mt-1" role="alert">
+                    Nombre requerido..
+                </div>
+                
+            </span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input class="form-control" type="email" name="email" #email="ngModel" [(ngModel)]="usuarioService.selectedUsuario.email" placeholder="Email" required>
+              <span *ngIf="email.touched && !email.valid">
+                <div class="alert alert-danger mt-1" role="alert">
+                    Email invalido..
+                </div>
+                
+            </span>
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña:</label>
+              <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="usuarioService.selectedUsuario.password" placeholder="Contraseña" required>
+              <span *ngIf="password.touched && !password.valid">
+                <div class="alert alert-danger mt-1" role="alert">
+                    Contraseña Requerida..
+                </div>
+                
+            </span>
+            </div>
+            <div class="form-group">
+              <label for="tipoCuenta">Tipo de cuenta:</label>
+              <select class="form-control" name="tipoCuenta" #tipoCuenta="ngModel" [(ngModel)]="usuarioService.selectedUsuario.tipoCuenta">
+                <option value="" selected>Selecciona una opción</option>
+                <option *ngFor="let rol of roles" [value]="rol.name">{{rol.name}}</option>
+               
+              </select>
+            </div>
+            <button class="btn btn-primary mr-2"  [disabled]="!usuarioForm.valid" (click)="addUsuario(usuarioForm)"><i class="fas fa-check"></i> Agregar</button>
+            <button class="btn btn-danger"  [disabled]="!usuarioForm.valid" (click)="resetUsuario(usuarioForm)"><i class="far fa-times-circle"></i> Cancelar</button>
+          </form> 
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 mt-2">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th> 
+            <th scope="col">Opciones</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr *ngFor="let dato of datos  let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{dato.nombreUsuario}}</td>
+            <td>{{dato.email}}</td>
+         
+            
+            <td>
+              <button class="btn btn-primary mr-2" (click)="updateUsuario(dato)"><i class="fas fa-pencil-alt"></i></button>
+              <button class="btn btn-danger" (click)="deleteUsuario(dato._id)"><i class="far fa-trash-alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+   
+    </div>
+  </div>
+</div>

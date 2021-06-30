@@ -1,0 +1,59 @@
+<div class="container-fluid" style="margin-top:68px">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mt-2">
+        <div class="card-header">
+          <h3><i class="far fa-building"></i> Agregar Ciudad</h3>
+        </div>
+        <div class="card-body">
+          <form #ciudadFrom="ngForm">
+            <input type="hidden" name="_id" [(ngModel)]="ciudadServices.selectedCiudad._id">
+            <div class="form-group">
+              <label for="nombreCiudad">Ciudad:</label>
+              <input class="form-control" type="text" name="nombreCiudad" #nombreCiudad="ngModel" [(ngModel)]="ciudadServices.selectedCiudad.nombreCiudad" placeholder="Ciudad" required>
+            </div>
+            <div class="form-group">
+              <label for="division">División:</label>
+              <select class="form-control" name="division" #division="ngModel" [(ngModel)]="ciudadServices.selectedCiudad.division" required>
+                <option value="" selected>Selecciona una división</option>
+                <option *ngFor="let dato of datos2" value="{{dato.nombreDivision}}">{{dato.nombreDivision}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="observacionCiudad">Observación:</label>
+              <textarea name="observacionCiudad" class="form-control" #observacionCiudad="ngModel" [(ngModel)]="ciudadServices.selectedCiudad.observacionCiudad" placeholder="Observación"></textarea>
+            </div>
+            <button class="btn btn-primary mr-2" [disabled]="!ciudadFrom.valid" (click)="addCiudad(ciudadFrom)"><i class="fas fa-check"></i> Agregar</button>
+            <button class="btn btn-danger" [disabled]="!ciudadFrom.valid" (click)="resetForm(ciudadFrom)"><i class="far fa-times-circle"></i> Cancelar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 mt-2">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ciudad</th>
+            <th scope="col">División</th>
+            <th scope="col">Observación</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dato of datos let i = index">
+            <td>{{i+1}}</td>
+            <td>{{dato.nombreCiudad}}</td>
+            <td>{{dato.division}}</td>
+            <td>{{dato.observacionCiudad}}</td>
+            <td>
+              <button class="btn btn-primary mr-2" (click)="updateCiudad(dato)"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger" (click)="deleteCiudad(dato._id)"><i class="far fa-trash-alt"></i></button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+     
+    </div>
+  </div>
+</div>

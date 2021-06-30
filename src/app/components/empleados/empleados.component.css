@@ -1,0 +1,16 @@
+h2{
+    padding: 5px;
+}
+
+i{
+    padding: 10px;
+}
+
+.row{
+    padding: 0;
+    margin: 0;
+}
+
+.gris{
+    background-color: #EEEEEE;
+}

@@ -1,0 +1,118 @@
+<div class="container-fluid" style="margin-top:70px">
+  <div class="texto">
+    <h3><i class="fa fa-file" aria-hidden="true"  ></i>&nbsp; Proyecto</h3>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+
+      <table class="table table-sm  table-striped table-bordered mt-1">
+        <tbody>
+          <tr><th scope="col">Folio:</th><th style="color: orange;">{{proyecto.folio}}</th></tr>
+          <tr><th scope="col">Proyecto:</th><th style="color: orange;">{{proyecto.nombreProyect}}</th></tr>
+          <tr><th scope="col">Contratista:</th><th style="color: orange;">{{proyecto.contratista}}</th></tr>
+          <tr><th scope="col">Supervisor:</th><th style="color: orange;">{{proyecto.supervisor}}</th></tr>
+          <tr><th scope="col">Supervisor Telmex:</th><th style="color: orange;">{{proyecto.supervisorTelmex}}</th></tr>
+          <tr><th scope="col">División:</th><th style="color: orange;">{{proyecto.division}}</th></tr>
+          <tr><th scope="col">Ciudad:</th><th style="color: orange;">{{proyecto.ciudad}}</th></tr>
+          <tr><th scope="col">Producto:</th><th style="color: orange;">{{proyecto.producto}}</th></tr>
+          <tr><th scope="col">Costo Aproximado:</th><th style="color: orange;">{{proyecto.costoAprox}}</th></tr>
+          <tr><th scope="col">OB:</th><th style="color: orange;">{{proyecto.obProyect}}</th></tr>
+          <tr><th scope="col">PEP</th><th style="color: orange;">{{proyecto.pepProyect}}</th></tr>
+          <tr><th scope="col">OP</th><th style="color: orange;">{{proyecto.opProyect}}</th></tr>
+          <tr><th scope="col">OEI</th><th style="color: orange;">{{proyecto.oeiProyect}}</th></tr>
+          <tr><th scope="col">OE</th><th style="color: orange;">{{proyecto.oeProyect}}</th></tr>
+            <tr><th scope="col">Fecha Inicio</th><th style="color: orange;">{{proyecto.fechaInicio | date:'dd/MM/yyyy'}}</th></tr>
+            <tr><th scope="col">Fecha Termino</th><th style="color: orange;">{{proyecto.fechaTermino | date:'dd/MM/yyyy'}}</th></tr>
+            <tr><th scope="col">Duración</th><th style="color: orange;">{{proyecto.duracion}}</th></tr>
+            <tr><th scope="col">Tiempo</th><th style="color: orange;">{{proyecto.transcurrido}}</th></tr>
+            <tr><th scope="col">Observación</th><th style="color: orange;">{{proyecto.observacionProyect}}</th></tr>
+            <tr><th scope="col">Documentos</th><th style="color: orange;">{{proyecto.documentos}}</th></tr>
+            <tr><th scope="col">Estatus</th><th style="color: orange;">{{proyecto.status}}</th></tr>
+            <tr><th scope="col">Etapa</th><th style="color: orange;">{{proyecto.etapas}}</th></tr>
+        </tbody>
+      </table>
+
+      
+    </div>
+    <div class="col-md-8  mt-1">
+      <div id="accordion">
+        <div class="card ml-auto">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        <h2>Documentos...</h2>
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  <table class="table table-striped table-bordered ">
+                    <!--
+                    <thead class="thead-dark">
+                      <tr>
+                        <th>Tipo</th>
+                        <th>Documento</th>
+                        <th>Opciones</th>
+                      </tr>
+                    </thead>
+                    -->
+                    <tbody>
+                      <tr *ngFor="let doc of document">
+                        <td>{{doc.alias}}</td>
+                        <td><a href="{{doc.urlDoc}}">{{doc.nombreDoc}}</a></td>
+                        <td><button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <button class="btn btn-primary " data-toggle="modal" data-target="#exampleModal">Agregar Documento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+
+<!--Model Documentos-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Documento al Proyecto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form #documentForm="ngForm" enctype="multipart/form-data">
+          <div class="form-group" >
+            <input class="form-control" type="file" name="nombreDoc" #nombreDoc="ngModel" (change)="onFileChange($event)" [(ngModel)]="documentoService.documentSelected.nombreDoc">
+        </div>
+        <div class="form-group">
+           
+            <select name="catDocumento" class="form-control" #catDocumento="ngModel" [(ngModel)]="documentoService.documentSelected.catDocumento">
+              <option >Selecciona una opción</option>
+              <option *ngFor="let catdocu of catDoc" value="{{catdocu.nombreDoc}}">{{catdocu.nombreDoc}}</option>
+            </select>
+        </div>
+     
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="uploadFile(documentForm)">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Fin Model-->
+  <footer>
+    Derechos reservados <a href="" >Carlos A. M. H.</a>
+  </footer>
+</div>

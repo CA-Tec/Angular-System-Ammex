@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <nav *ngIf="datos" class="navbar fixed-top navbar-expand-lg  navbar-dark bg-dark ">
+    <a class="navbar-brand" href="#"><img src="../assets/img/logo-v.png" width="100" ></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link" routerLink="/" ><i class="fa fa-home" aria-hidden="true" ></i>&nbsp; Dashboard <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  >
+            <i class="fa fa-file" aria-hidden="true"  ></i>&nbsp; Proyectos
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" routerLink="/proyectos" routerLinkActive="active"><i class="fa fa-plus" aria-hidden="true" ></i>&nbsp; Nuevo Proyecto</a>
+            <a class="dropdown-item" routerLink="/listaproyectos" routerLinkActive="active"><i class="fa fa-th-list" aria-hidden="true"></i>&nbsp; Lista Proyectos</a>
+
+          </div> 
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                <i class="fa fa-database" aria-hidden="true"></i>&nbsp; Catalogos
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="/division"  routerLinkActive="active"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; Division</a>
+              <a class="dropdown-item" routerLink="/ciudad"  routerLinkActive="active"><i class="fa fa-building" aria-hidden="true" ></i>&nbsp; Ciudad</a>
+              <a class="dropdown-item" routerLink="/cat-documentos"  routerLinkActive="active"><i class="fa fa-file" aria-hidden="true"></i>&nbsp; Documentos</a>
+              <a class="dropdown-item" routerLink="/productos"  routerLinkActive="active"><i class="fa fa-th-large" aria-hidden="true" ></i>&nbsp; Productos</a>
+            </div> 
+          </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-male" aria-hidden="true"></i>&nbsp; Empleados
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="/empleados" routerLinkActive="active"><i class="fa fa-id-card" aria-hidden="true"></i>&nbsp; Nuevo Empleado</a>
+              <a class="dropdown-item" routerLink="/listaEmpleados"  routerLinkActive="active"><i class="fa fa-th-list" aria-hidden="true"></i>&nbsp; Lista Empleados</a>
+              <a class="dropdown-item" routerLink="/categoriaEmpleados"  routerLinkActive="active"><i class="fa fa-id-badge" aria-hidden="true"></i>&nbsp; Nueva Categoria Empleado</a>
+            </div> 
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                <i class="fa fa-user" aria-hidden="true"></i>&nbsp; Usuarios
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item"  routerLinkActive="active"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp; Nuevo Usuario</a>
+            </div> 
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link"  routerLinkActive="active"><i class="fa fa-th" aria-hidden="true"></i>&nbsp; Inventario <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" routerLinkActive="active"><i class="fa fa-cog" aria-hidden="true" ></i>&nbsp; Configuracion<span class="sr-only">(current)</span></a>
+          </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown dropleft ">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user-circle" aria-hidden="true"></i>{{datos}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Perfil</a>
+          <a class="dropdown-item" (click)="logout()">Cerrar Sesión</a>
+
+        </div> 
+      </li>
+      </ul>
+    </div>
+  </nav>
+</div>

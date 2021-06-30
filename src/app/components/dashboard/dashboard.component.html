@@ -1,0 +1,73 @@
+<div class="container-fluid" style="margin-top:68px">
+ 
+  <div class="row">
+        <div class="col-md-2">
+          <div class="card mt-3" style="text-align: center;">
+            <div class="card-header">
+              <i class="far fa-file-alt"></i><h6>Proyectos Totales</h6>
+            </div>
+            <div class="card-body" style="background-color: grey ; color: white;">
+              <h2>{{count}}</h2>
+              <h2><i class="fas fa-arrow-up"></i></h2>
+            </div>
+    
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card mt-3" style="text-align: center;">
+            <div class="card-header">
+              <div>
+                <i class="fas fa-check"></i><h6>Proyectos Terminados</h6>
+              </div>
+    
+            </div>
+            <div class="card-body" style="background-color: #26C281; color: white;">
+              <h2>0</h2>
+              <button class="btn btn-primary btn-block"><i class="fas fa-list"></i> Ver Lista</button>
+            </div>
+    
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card mt-3"  style="text-align: center;">
+            <div class="card-header" >
+              <i class="fas fa-exclamation-triangle"></i><h6>Proyectos por Vencer</h6>
+            </div>
+            <div class="card-body" style="background-color:#EB974E ; color: white;">
+              <h2>{{count2.length}}</h2>
+              <button class="btn btn-primary btn-block" routerLink="/listavencer"><i class="fas fa-list"></i> Ver Lista</button>
+            </div>
+      </div>
+    </div>
+        <div class="col-md-3">
+          <div class="card mt-3"style="text-align: center;" >
+            <div class="card-header" >
+              <i class="far fa-file-excel"></i><h6>Proyectos Vencidos</h6>
+            </div>
+            <div class="card-body" style="background-color:#D64541 ; color: white;">
+              <h2>{{count1.length}}</h2>
+              <button class="btn btn-primary btn-block" routerLink="/listavencidos"><i class="fas fa-list"></i> Ver Lista</button>
+            </div>
+    
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card mt-3" style="text-align: center;">
+            <div class="card-header">
+              <i class="far fa-file-alt"></i><h6>Proyectos Cancelados</h6>
+            </div>
+            <div class="card-body" style="background-color: grey ; color: white;">
+              <h2>{{count}}</h2>
+              <h2><i class="fas fa-arrow-up"></i></h2>
+            </div>
+    
+          </div>
+        </div>
+</div>
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Grafica...</h3>
+        </div>
+        </div>
+    </div>
+ 

@@ -1,0 +1,44 @@
+.texto{
+    color:white;
+    background-color:transparent;
+    padding: 5px;
+    border-radius: 3px;
+    border: solid 1px #525965;
+}
+
+.card{
+    background-color:transparent;
+    border: solid 1px #525965; 
+}
+
+
+input, input:focus, textarea, textarea:focus{
+    background-color:transparent;
+    border: solid 1px white;;
+   /* border-bottom: solid 1px white; */
+    color: #d6964c;
+
+}
+
+select{
+    background-color: transparent;
+    color: #d6964c;
+    border: solid 1px white;;
+  /* border-bottom: solid 1px white;*/
+}
+
+select, option{
+    background-color: transparent;
+}
+
+select, option:hover{
+    background-color: transparent;
+}
+
+label{
+    color: white;
+}
+
+.container-fluid{
+    margin-bottom: 45px;
+}

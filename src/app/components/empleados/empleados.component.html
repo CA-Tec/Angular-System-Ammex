@@ -1,0 +1,89 @@
+<div class="container-fluid" style="margin-top:68px">
+  
+    <div class="card mt-2">
+      <div class="card-header">
+        <h4><i class="fas fa-male"></i>Agregar empleados</h4>
+      </div>
+      <div class="card-body p-3">
+        <form #empleadosForm="ngForm">
+        <div class="row">
+          <div class="col-md-6">
+           
+            <div class="form-group">
+              <label for="nombreEmpleado">Nombre(s):</label>
+              <input type="text" name="nombreEmpleado" class="form-control" #nombreEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.nombreEmpleado" placeholder="Nombre(s)" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="apellidosEmpleado">Apellidos(s):</label>
+              <input type="text" name="apellidosEmpleado" class="form-control" #apellidosEmpleado ="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.apellidosEmpleado" placeholder="Apellidos(s)" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group ">
+              <label for="direccionEmpleado">Dirección:</label>
+              <textarea name="direccionEmpleado" class="form-control" #direccionEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.direccionEmpleado" placeholder="Direccion" ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="CURPEmpleado">CURP:</label>
+              <input type="text" name="CURPEmpleado" #CURPEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.CURPEmpleado" placeholder="CURP" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group ">
+              <label for="NSSEmpleado">NSS:</label>
+              <input type="number" name="NSSEmpleado" #NSSEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.NSSEmpleado" placeholder="NSS" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="estudiosEmpleado">Grado de estudios:</label>
+              <select name="estudiosEmpleado" class="form-control" #estudiosEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.estudiosEmpleado">
+                <option value="" selected>Grado de estudio</option>
+                <option value="primaria">Primaria</option>
+                <option value="secundario">Secundaria</option>
+                <option value="preparatoria">Preparatoria</option>
+                <option value="licenciatura">Licenciatura</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="fNacEmpleado">Fecha de nacimiento:</label>
+              <input type="date" name="fNacEmpleado" #fNacEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.fNacEmpleado" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label for="Categoria">Categoria:</label>
+            <select name="Categoria" class="form-control" #Categoria="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.Categoria" required>
+              <option value="" selected>Seleccione una categoria</option>
+              <option *ngFor="let dato of datos" value="{{dato.nombreCategoria}}">{{dato.nombreCategoria}}</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="fechaIngreso">Fecha de Ingreso</label>
+            <input type="date" name="fechaIngreso" id="" #fechaIngreso="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.fechaIngreso" class="form-control" >
+          </div>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary " [disabled]="!empleadosForm.valid" (click)="createEmpleados(empleadosForm)"><i class="fas fa-check"></i>Guardar</button>
+        <button class="btn btn-danger ml-3"><i class="far fa-times-circle"></i>Carcelar</button>
+
+        <button class="btn btn-success ml-3 float-right" routerLink="/listaEmpleados" routerLinkActive="active"><i class="fas fa-list"></i>Ver Empleados</button>
+      </form>
+      </div>
+    </div>
+  
+</div>

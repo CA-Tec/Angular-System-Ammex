@@ -1,0 +1,67 @@
+<div class="container-fluid" style="margin-top:68px">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3><i class="far fa-user"></i>Categoria de empleados</h3>
+                </div>
+            
+                <div class="card-body">
+                    <form #categoriaForm="ngForm" >
+
+                        <input type="hidden" name="_id" [(ngModel)]="catEmpleadosService.selectedCatEmpleado._id">
+                        <div class="from-group">
+                            <label for="nombreCategoria">Categoria:</label>
+                            <input class="form-control" type="text" name="nombreCategoria" #nombreCategoria="ngModel" [(ngModel)]="catEmpleadosService.selectedCatEmpleado.nombreCategoria"  placeholder="Categoria"  required>
+                            <span *ngIf="nombreCategoria.touched && !nombreCategoria.valid">
+                                <div class="alert alert-danger mt-1" role="alert">
+                                    Categoria requerida..
+                                </div>
+                                
+                            </span>
+                        </div>
+                        <div class="from-group">
+                            <label for="observacionCategoria">Observacion:</label>
+                            <textarea class="form-control" name="observacionCategoria" #observacionCategoria="ngModel" [(ngModel)]="catEmpleadosService.selectedCatEmpleado.observacionCategoria"  placeholder="Observacion" ></textarea>
+                        </div>
+                        <div class="from-group mt-2 mb-2 ">
+                            <button type="submit" class="btn btn-primary mr-2" (click)="addCatEmpleado(categoriaForm)" [disabled]="!categoriaForm.valid"><i class="fas fa-check"></i> Agregar</button>
+                            <button type="submit"  class="btn btn-danger" (click)="cancelar(categoriaForm)" [disabled]="!categoriaForm.valid"><i class="far fa-times-circle"></i> Cancelar</button>
+                        </div>
+    
+
+                    </form>
+                </div>
+            </div>
+        </div>
+       
+        <div class="col-md-7 mt-4">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th score="col">Categoria</th>
+                    <th score="col">Observacion</th>
+                    <th scope="col">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let catempleados of catEmpleadosService.catEmpleados   let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{catempleados.nombreCategoria}}</td>
+                    <td>{{catempleados.observacionCategoria}}</td>
+
+                    <td >
+      
+                        <button class="btn btn-primary mr-2" (click)="updateCatEmpleado(catempleados)"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger" (click)="deleteCatEmpleado(catempleados._id)"><i class="far fa-trash-alt"></i></button>
+          
+                    </td>
+                  </tr>
+            
+                </tbody>
+              </table>
+            
+        </div>
+    </div>
+</div>
+
