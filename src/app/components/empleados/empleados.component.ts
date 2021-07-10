@@ -3,6 +3,9 @@ import { EmpleadosService} from '../../services/empleados.service';
 import {CatempleadoService} from '../../services/catempleado.service';
 import {NgForm} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+
+import Swal from 'sweetalert2';
+
 import { Empleados } from 'src/app/model/empleados';
 
 
@@ -32,17 +35,53 @@ export class EmpleadosComponent implements OnInit {
   }
 
   createEmpleados(form:NgForm){
+
+    if(form.value._id){
+      this.empleadoServices.putEmpleado(form.value).subscribe(
+        res=>{
+          this.msjUpdate();
+          form.reset();
+        }
+      )
+    }else{
+
+
    this.empleadoServices.addEmpleados(form.value).subscribe(
      res =>{
        console.log(res)
-      this.msj='Empleado Agregado';
       form.reset();
-      this.toastr.success(this.msj);
+      this.msjConfirm();
 
      },
      err => console.log(err)
    )
+    }
   }
 
+  msjConfirm(){
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Empleado Agregado',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
+  }
+
+  msjUpdate(){
+    Swal.fire({
+      position: 'center',
+      icon: 'info',
+      title: 'Empleado Actualizado',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
+  }
+
+  limpiar(form:NgForm){
+ form.resetForm()
+  }
 
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {RUTA} from './api.service';
 
 import {Division} from '../model/division';
 
@@ -7,7 +8,7 @@ import {Division} from '../model/division';
   providedIn: 'root'
 })
 export class DivisionService {
-  URL_API = 'http://165.232.131.165/';
+  URL_API = RUTA;
 
   constructor(private http:HttpClient) { }
 

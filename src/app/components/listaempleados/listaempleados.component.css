@@ -30,3 +30,11 @@ h5 i{
     padding: 5px;
     font-size: 30px;
 }
+
+.texto{
+    color:white;
+    background-color:transparent;
+    padding: 5px;
+    border-radius: 3px;
+    border: solid 1px #525965;
+}

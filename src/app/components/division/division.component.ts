@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {DivisionService } from '../../services/division.service';
 import {ToastrService} from 'ngx-toastr';
+
+import Swal from 'sweetalert2';
+
 import {Division} from '../../model/division';
  
 @Component({
@@ -36,7 +39,8 @@ export class DivisionComponent implements OnInit {
       this.divisionServices.putDivision(form.value).subscribe(
         res => {
           this.msj ='Division Actualizada';
-          this.toastr.info(this.msj);
+          //this.toastr.info(this.msj);
+          this.msjUpdate();
           this.getDivision();
           form.reset();
         }
@@ -45,7 +49,8 @@ export class DivisionComponent implements OnInit {
       this.divisionServices.createDivision(form.value).subscribe(
         res=>{
           this.msj='Division Agregada';
-          this.toastr.success(this.msj);
+          //this.toastr.success(this.msj);
+          this.msjConfirm();
           this.getDivision();
           form.reset();
         }
@@ -55,20 +60,60 @@ export class DivisionComponent implements OnInit {
   }
 
   deleteDivision(_id:string){
-    if(confirm('¿Desea eliminar la division?')){
-      this.divisionServices.deleteDivision(_id).subscribe(
-        res =>{
-          this.msj ='Division Eliminada';
-          this.toastr.error(this.msj);
-          this.getDivision();
-        }
-      )
-    }
+    Swal.fire({
+      title: '¿Desea eliminar la División?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      console.log(result);
+      if (result.value == true) {
+        this.divisionServices.deleteDivision(_id).subscribe(
+          res =>{
+            //this.msj ='Division Eliminada';
+            //this.toastr.error(this.msj);
+            this.getDivision();
+          }
+        )
+        Swal.fire(
+          'División eliminada',
+          '',
+          'success'
+        )
+      }
+    })
+
 
   }
 
   updateDivision(division:Division){
     this.divisionServices.selectedDivision = division;
+  }
+
+//Ventanas de notificacion
+
+  msjConfirm(){
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'División Agregada',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
+  }
+
+  msjUpdate(){
+    Swal.fire({
+      position: 'center',
+      icon: 'info',
+      title: 'División Actualizada',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
   }
 
 }

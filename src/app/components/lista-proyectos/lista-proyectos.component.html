@@ -4,31 +4,31 @@
     </div>
   <div class="row mt-1">
     <div class="col-md-10">
-      Filtro por Proyectos: 
-      <a href=""><span class="badge badge-warning">Captura</span> </a>
-      <a href=""><span class="badge badge-secondary ml-1">Documentos</span> </a>
+      <div class="btn-group " role="group" aria-label="Basic example">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" (click)="generarExcel()">Excel</button>
+        <button type="button" class="btn btn-secondary"(click)="generatePdf()">PDF</button>
+        <button type="button"  class="btn btn-secondary"(click)="geneExcelSearch()">Excel Busqueda</button>
+        </div>
+
+      </div>
     </div>
     <div class="col-md-2 ml-auto">
-      <form >
+      <form #formSearch>
       <div class="form-group">
-        <input class="form-control form-control-sm" type="text" name="buscar" placeholder="Buscar......">
+        <input type="text"  class="form-control form-control-sm" name="filterPost" placeholder="Buscar......." #txtSearch (keyup)="onsearch(txtSearch.value)" required>
       </div>
     </form>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      <div class="btn-group " role="group" aria-label="Basic example">
-        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary" (click)="generarExcel()">Excel</button>
-        <button type="button" class="btn btn-secondary"(click)="generatePdf()">PDF</button>
-        </div>
-    </div>
-  </div>
+
+
   </div>
       <table class="table table-striped table-bordered mt-1">
         <thead class="thead-dark">
           <tr>
+            <th>#</th>
             <th scope="col">Folio</th>
             <th scope="col">Proyecto</th>
             <th scope="col">Supervisor</th>
@@ -38,12 +38,20 @@
             <th scope="col">Tiempo</th>
             <th scope="col">Producto</th>
             <th scope="col">Documentos</th>
-            <th scope="col">Estatus</th>
+            <th scope="col">Estatus
+
+            </th>
             <th scope="col">Opciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let proyect of proyecto ">
+          
+          <tr *ngFor="let proyect of proyecto | filter:page:search">
+            <td>
+              
+              <input type="checkbox"  name="valor" (change)="onChange(proyect,$event.target.checked)">
+          
+            </td>
             <td><a routerLink="/verproyecto/{{proyect._id}}" style="color:darkcyan">{{proyect.folio}}</a></td>
             <td>{{proyect.nombreProyect}}</td>
             <td>{{proyect.supervisor}}</td>
@@ -59,9 +67,12 @@
             <td *ngIf="proyect.transcurrido <= 0">
               <span class="badge badge-danger"> {{proyect.transcurrido}}</span>
             </td>
+            <td *ngIf="!proyect.transcurrido">
+              <span class="badge badge-danger"> 0</span>
+            </td>
             <td>{{proyect.producto}}</td>
             <td>{{proyect.documentos}}</td>
-            <td *ngIf="proyect.status == 'ACTIVO' && proyect.etapas == 'Captura'">
+            <td *ngIf="proyect.status == 'ACTIVO' && proyect.etapas == 'Captura' || proyect.etapas == 'INICIAL'" >
               <span class="badge badge-success mr-1">{{proyect.status}} </span>
               <span class="badge badge-warning">{{proyect.etapas}}</span> 
             </td>
@@ -69,11 +80,21 @@
               <span class="badge badge-success mr-1">{{proyect.status}} </span>
               <span class="badge badge-secondary">{{proyect.etapas}}</span> 
             </td>
+            <td *ngIf="proyect.status === 'TERMINADO'">
+              <span class="badge badge-info mr-1">{{proyect.status}} </span>
+              <span class="badge badge-secondary">{{proyect.etapas}}</span> 
+            </td>
+
             <td>
-              <button class="btn btn-primary btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Actualizar Proyecto"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto"><i class="far fa-trash-alt"></i></button>
+              <button class="btn btn-primary btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Actualizar Proyecto" (click)="updateProyect(proyect)"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto" (click)="deleteProyect(proyect._id)"><i class="far fa-trash-alt"></i></button>
             </td>
           </tr>
+       
         </tbody>
       </table>
-      
+      <div class="mb-3">
+        <button class="btn btn-primary btn-sm" (click)="prevPage()"><i class="fas fa-arrow-left"></i> Anterior</button>
+        <button class="btn btn-primary btn-sm" (click)="nextPage()">Siguiente <i class="fas fa-arrow-right"></i></button>
+      </div>
+    
     </div>

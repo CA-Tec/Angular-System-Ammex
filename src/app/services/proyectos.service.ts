@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Proyectos} from '../model/proyectos';
 import {HttpClient} from '@angular/common/http';
+import {RUTA} from './api.service';
 import {CatDocumentos} from '../model/cat-documentos';
 
 
@@ -9,7 +10,7 @@ import {CatDocumentos} from '../model/cat-documentos';
   providedIn: 'root'
 })
 export class ProyectosService {
-  URL_API = 'http://165.232.131.165/';
+  URL_API = RUTA;
 
   constructor(private http:HttpClient) { }
 
@@ -83,10 +84,16 @@ export class ProyectosService {
     return this.http.get(this.URL_API+'cat-documento');
   }
 
+  deleteProyect(id:string){
+    return this.http.delete(this.URL_API+'proyectos/'+id);
+
+  }
 
   //obtener Documentos por proyecto
 
   getDocumentos(id:string){
     return this.http.get(this.URL_API+'documento/'+id);
   }
+
+  
 }

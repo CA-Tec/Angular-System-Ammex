@@ -1,11 +1,10 @@
 <div class="container-fluid" style="margin-top:68px">
+  <div class="texto">
+    <h3><i class="fa fa-building" aria-hidden="true" ></i>&nbsp; Agregar Ciudad</h3>
+  </div>
   <div class="row">
     <div class="col-md-4">
-      <div class="card mt-2">
-        <div class="card-header">
-          <h3><i class="far fa-building"></i> Agregar Ciudad</h3>
-        </div>
-        <div class="card-body">
+      <main class="mt-2">
           <form #ciudadFrom="ngForm">
             <input type="hidden" name="_id" [(ngModel)]="ciudadServices.selectedCiudad._id">
             <div class="form-group">
@@ -26,11 +25,11 @@
             <button class="btn btn-primary mr-2" [disabled]="!ciudadFrom.valid" (click)="addCiudad(ciudadFrom)"><i class="fas fa-check"></i> Agregar</button>
             <button class="btn btn-danger" [disabled]="!ciudadFrom.valid" (click)="resetForm(ciudadFrom)"><i class="far fa-times-circle"></i> Cancelar</button>
           </form>
-        </div>
-      </div>
+        </main>
     </div>
     <div class="col-md-8 mt-2">
-      <table class="table">
+      <section>
+      <table class="table table-striped table-bordered mt-2">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
@@ -47,13 +46,13 @@
             <td>{{dato.division}}</td>
             <td>{{dato.observacionCiudad}}</td>
             <td>
-              <button class="btn btn-primary mr-2" (click)="updateCiudad(dato)"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger" (click)="deleteCiudad(dato._id)"><i class="far fa-trash-alt"></i></button>
+              <button class="btn btn-primary btn-sm mr-2" (click)="updateCiudad(dato)"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm" (click)="deleteCiudad(dato._id)"><i class="far fa-trash-alt"></i></button>
             </td>
 
           </tr>
         </tbody>
       </table>
-     
+    </section>
     </div>
   </div>
 </div>

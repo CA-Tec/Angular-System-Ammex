@@ -9,7 +9,7 @@ export interface Proyectos{
     supervisor:string
     fechaInicio:Date
     fechaTermino:Date
-    duracion:string
+    duracion?:string
     transcurrido?:number
     documentos?:string
     costoAprox?:string

@@ -1,0 +1,32 @@
+.texto{
+    color:white;
+    background-color:transparent;
+    padding: 5px;
+    border-radius: 3px;
+    border: solid 1px #525965;
+}
+
+.card{
+    background-color:transparent;
+    
+}
+
+input, input:focus, textarea, textarea:focus, select{
+    background-color:transparent;
+    border: solid 1px white;
+    /*border-bottom: solid 1px white;*/
+    color: #d6964c;
+
+}
+
+main{
+    padding: 10px 10px;
+    border: solid 1px #525965;
+    height:100%;
+}
+
+section{
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid 1px #525965; 
+}

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 
+import Swal from 'sweetalert2';
+
 import {ProductosService} from '../../services/productos.service';
 import {Productos} from '../../model/productos';
 
@@ -38,8 +40,7 @@ export class ProductosComponent implements OnInit {
     if(form.value._id){
       this.productosService.putProducto(form.value).subscribe(
         res =>{
-          this.msj='Producto Actualizado';
-          this.toastr.info(this.msj);
+          this.msjUpdate();
           this.getProducto();
           form.reset();
         },
@@ -48,8 +49,7 @@ export class ProductosComponent implements OnInit {
     }else{
       this.productosService.createProducto(form.value).subscribe(
         res=>{
-          this.msj ='Producto Agregado';
-          this.toastr.success(this.msj);
+          this.msjConfirm();
           this.getProducto();
           form.reset();
         },
@@ -59,20 +59,60 @@ export class ProductosComponent implements OnInit {
   }
 
   deleteProducto(_id:string){
-    if(confirm('¿Desea eliminar el producto?')){
-      this.productosService.deleteProducto(_id).subscribe(
-        res=>{
-          this.msj='Producto Elinimado';
-          this.toastr.error(this.msj);
-          this.getProducto();
-        },
-        err=> console.log(err)
-      )
-    }
+
+
+    Swal.fire({
+      title: '¿Desea eliminar el Producto?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#c23616',
+      cancelButtonColor: '#353b48',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      console.log(result);
+      if (result.value == true) {
+        this.productosService.deleteProducto(_id).subscribe(
+          res=>{
+
+            this.getProducto();
+          },
+          err=> console.log(err)
+        )
+        Swal.fire(
+          'Producto eliminado',
+          '',
+          'success'
+        )
+      }
+    })
+
+
   }
 
   updateProducto(producto:Productos){
     this.productosService.selectedProducto = producto;
+  }
+
+  msjConfirm(){
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Producto Agregado',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
+  }
+
+  msjUpdate(){
+    Swal.fire({
+      position: 'center',
+      icon: 'info',
+      title: 'Producto Actualizado',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
   }
 
 }

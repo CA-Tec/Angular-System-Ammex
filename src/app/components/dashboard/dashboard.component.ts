@@ -10,6 +10,7 @@ export class DashboardComponent implements OnInit {
 public count;
 public count1;
 public count2;
+public count3;
   constructor(public consultaProyect:ConsultproyectService) { }
 
   ngOnInit() {
@@ -17,6 +18,7 @@ public count2;
     this.getTotales();
     this.getVencidos();
     this.getxVencer();
+    this.getTerminados();
   }
 
   getTotales(){
@@ -39,6 +41,14 @@ public count2;
     this.consultaProyect.getVencer().subscribe(
       res=>{
         this.count2 = res;
+      }
+    )
+  }
+
+  getTerminados(){
+    this.consultaProyect.getTerminados().subscribe(
+      res =>{
+        this.count3= res;
       }
     )
   }

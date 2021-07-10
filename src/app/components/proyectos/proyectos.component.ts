@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
 
 import * as moment from 'moment';
 
@@ -7,6 +9,7 @@ import{ToastrService} from 'ngx-toastr';
 
 
 import {ProyectosService} from '../../services/proyectos.service';
+
 
 @Component({
   selector: 'app-proyectos',
@@ -23,7 +26,10 @@ public ciudades;
 public super;
 public msj;
 public folioP;
-  constructor(public proyectoService:ProyectosService, public toastr:ToastrService) { }
+  constructor(
+    public proyectoService:ProyectosService, 
+    public router:Router
+    ) { }
 
   ngOnInit() {
   
@@ -40,7 +46,7 @@ public folioP;
      inicio =moment(this.proyectoService.selectedProyecto.fechaInicio);
      final=moment(this.proyectoService.selectedProyecto.fechaTermino);
      dife=final.diff(inicio,'days') + 1;
-
+    console.log(inicio,final);
      this.proyectoService.selectedProyecto.duracion = dife ;
      
      console.log(dife);
@@ -139,27 +145,36 @@ createProyectos(form:NgForm){
   console.log(form.value);
   this.proyectoService.createProyecto(form.value).subscribe(
     res =>{
-      this.msj='Proyecto Agregado';
-      this.toastr.success(this.msj);
-      window.location.reload();
+      this.msjConfirmacion();
+      this.router.navigate(['/proyectos']);
 
     }
   ) 
 }
 
 limpiar(){
- window.location.reload();
+ this.router.navigate(['/proyectos'])
 }
 
 getFolioProyect(){
   this.proyectoService.getFolio().subscribe(
     res=>{
       this.folioP =res;
-      console.log(this.folioP.folio);
+      console.log(this.folioP.folio, this.folioP.ultFolio);
       this.proyectoService.selectedProyecto.folio = this.folioP.folio;
     },err=> console.log(err)
   )
-  
-}
+  }
+
+  msjConfirmacion(){
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Proyecto Agregado.',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
+  }
 
 }

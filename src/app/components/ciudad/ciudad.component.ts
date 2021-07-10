@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 
+import Swal from 'sweetalert2';
+
 import {Ciudad} from '../../model/ciudad';
 import {CiudadService} from '../../services/ciudad.service';
  
@@ -50,7 +52,8 @@ public msj;
       this.ciudadServices.updateCiudad(form.value).subscribe(
         res =>{
           this.msj='Ciudad Actualizada...';
-          this.toastr.info(this.msj);
+          //this.toastr.info(this.msj);
+          this.msjUpdate();
           this.getCiudad();
           form.reset();
         },
@@ -60,7 +63,8 @@ public msj;
       this.ciudadServices.createCiudad(form.value).subscribe(
         res=>{
           this.msj='Ciudad Agregada..';
-          this.toastr.success(this.msj);
+          //this.toastr.success(this.msj);
+          this.msjConfirm();
           this.getCiudad();
           form.reset();
         },
@@ -74,16 +78,52 @@ public msj;
   }
 
   deleteCiudad(_id:string){
-    if(confirm('¿Desea eliminar la ciudad?')){
-      this.ciudadServices.deleteCiudad(_id).subscribe(
-        res=>{
-          this.msj='Ciudad Eliminado...';
-          this.toastr.error(this.msj);
-          this.getCiudad();
-        },
-        err => console.log(err)
-      )
-    }
+    Swal.fire({
+      title: '¿Desea eliminar la Ciudad?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      console.log(result);
+      if (result.value == true) {
+        this.ciudadServices.deleteCiudad(_id).subscribe(
+          res=>{
+            this.getCiudad();
+          },
+          err => console.log(err)
+        )
+        Swal.fire(
+          'Ciudad eliminada',
+          '',
+          'success'
+        )
+      }
+    })
+  }
+
+
+  msjConfirm(){
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Ciudad Agregada',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
+  }
+
+  msjUpdate(){
+    Swal.fire({
+      position: 'center',
+      icon: 'info',
+      title: 'Ciudad Actualizada',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
   }
 
 }

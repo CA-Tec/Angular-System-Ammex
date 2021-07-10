@@ -14,21 +14,21 @@
              <input type="hidden" name="_id" [(ngModel)]="proyectoService.selectedProyecto._id">
             <div class="form-group">
               <label for="nombreProyect">Proyecto:</label>
-              <input class="form-control" type="text" name="nombreProyect" #nombreProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.nombreProyect" placeholder="Nombre del proyecto" required>
+              <input class="form-control form-control-sm" type="text" name="nombreProyect" #nombreProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.nombreProyect" placeholder="Nombre del proyecto" required>
             </div>
            </div>
            <div class="col-md-4">
             <div class="form-group">
               <label for="supervisorTelmex">Supervisor Telmex:</label>
-              <input class="form-control" type="text" name="supervisorTelmex" #supervisorTelmex="ngModel" [(ngModel)]="proyectoService.selectedProyecto.supervisorTelmex" placeholder="Nombre Supervisor Telmex" >
+              <input class="form-control form-control-sm" type="text" name="supervisorTelmex" #supervisorTelmex="ngModel" [(ngModel)]="proyectoService.selectedProyecto.supervisorTelmex" placeholder="Nombre Supervisor Telmex" >
             </div>
            </div>
            <div class="col-md-4">
             <div class="form-group">
               <label for="supervisor">Supervisor</label>
-              <select class="form-control" name="supervisor" #supervisor="ngModel" [(ngModel)]="proyectoService.selectedProyecto.supervisor" required >
-                <option value="">Selecciona Supervisor</option>
-                <option  *ngFor="let supervi of super" value="{{supervi.nombreEmpleado + supervi.apellidosEmpleado}}">{{supervi.nombreEmpleado+' '+ supervi.apellidosEmpleado}}</option>
+              <select class="form-control form-control-sm" name="supervisor" #supervisor="ngModel"  [(ngModel)]="proyectoService.selectedProyecto.supervisor" required >
+                <option value="" active>Selecciona Supervisor</option>
+                <option  *ngFor="let supervi of super" value="{{supervi.nombreEmpleado + ' ' + supervi.apellidosEmpleado}}">{{supervi.nombreEmpleado+' '+ supervi.apellidosEmpleado}}</option>
               </select>
             </div>
           </div>
@@ -39,7 +39,7 @@
            <div class="col-md-3">
              <div class="form-group">
                <label for="division">División:</label>
-               <select class="form-control" name="division" #division="ngModel" [(ngModel)]="proyectoService.selectedProyecto.division" (change)="getCiudad()" required>
+               <select class="form-control form-control-sm" name="division" #division="ngModel" [(ngModel)]="proyectoService.selectedProyecto.division" (change)="getCiudad()"  required>
                 <option value="">Selecciona Division</option>
                  <option *ngFor="let dato of datos" [value]="dato.nombreDivision" >{{dato.nombreDivision}}</option>
                </select>
@@ -48,7 +48,7 @@
            <div class="col-md-2">
              <div class="form-group">
                <label for="ciudad">Ciudad:</label>
-               <select class="form-control" name="ciudad" #ciudad="ngModel" [(ngModel)]="proyectoService.selectedProyecto.ciudad" required>
+               <select class="form-control form-control-sm" name="ciudad" #ciudad="ngModel" [(ngModel)]="proyectoService.selectedProyecto.ciudad" required>
                  <option value="">Selecciona Ciudad</option>
                 <option *ngFor="let ciudad of ciudades" [value]="ciudad.nombreCiudad" >{{ciudad.nombreCiudad}}</option>
                </select>
@@ -57,20 +57,31 @@
            <div class="col-md-3">
             <div class="form-group">
               <label for="producto">Producto:</label>
-              <select class="form-control" name="producto" #producto="ngModel" [(ngModel)]="proyectoService.selectedProyecto.producto" required>
+              <select class="form-control form-control-sm" name="producto" #producto="ngModel" [(ngModel)]="proyectoService.selectedProyecto.producto" required>
                 <option value="">Selecciona Producto</option>
                 <option *ngFor="let dato2 of datos2 " value="{{dato2.nombreProducto}}">{{dato2.nombreProducto}}</option>
               </select>
             </div>
           </div>
           <div class="col-md-2">
-            <label for="fechaInicio">Fecha de Inicio:</label>
-            <input class="form-control" type="date" name="fechaInicio" #fechaInicio="ngModel" [(ngModel)]="proyectoService.selectedProyecto.fechaInicio" (change)="limite(proyectoForm)" required>
+            <div class="form-group">
+              <label for="fechaTermino">Fecha Inicio:</label>
+              <input matInput [matDatepicker]="picker" name="fechaInicio" #fechaInicio="ngModel" [(ngModel)]="proyectoService.selectedProyecto.fechaInicio" (changeDate)="limite(proyectoForm)"  style="display:inline;width: 120px;">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </div>
+           
           </div>
 
           <div class="col-md-2">
-            <label for="fechaTermino">Fecha de Termino</label>
-            <input class="form-control" type="date" name="fechaTermino" min="{{inicio}}" #fechaTermino="ngModel" [(ngModel)]="proyectoService.selectedProyecto.fechaTermino"  (change)="calcular(proyectoForm)" required>
+            
+            <div class="form-group">
+              <label for="fechaTermino">Fecha Termino:</label>
+              <input matInput [matDatepicker]="picker2" name="fechaTermino" min="{{inicio}}" #fechaTermino="ngModel" [(ngModel)]="proyectoService.selectedProyecto.fechaTermino" (click)="calcular(proyectoForm)"   style="display:inline;width: 120px;">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2 ></mat-datepicker>
+            </div>
+            
           </div>
          </div>
 
@@ -81,50 +92,46 @@
          </div>
 
          <div class="row">
-          <div>
-            <label for="duracion"></label>
-            <input class="form-control" type="hidden" name="duracion" placeholder="Duración" #duracion="ngModel" [(ngModel)]="proyectoService.selectedProyecto.duracion" required>
-          </div>
           <div class="col-md-2">
             <label for="costoAprox">Costo Aproximado:</label>
-            <input class="form-control" type="number" name="costoAprox" placeholder="Costo aproximado" #costoAprox="ngModel" [(ngModel)]="proyectoService.selectedProyecto.costoAprox" required>
+            <input class="form-control form-control-sm" type="number" name="costoAprox" placeholder="Costo aproximado" #costoAprox="ngModel" [(ngModel)]="proyectoService.selectedProyecto.costoAprox" required>
           </div>
            <div class="col-md-2">
              <label for="obProyect">OB</label>
-             <input class="form-control" type="text" name="obProyect" #obProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.obProyect" placeholder="OB">
+             <input class="form-control form-control-sm" type="text" name="obProyect" #obProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.obProyect" placeholder="OB">
            </div>
            <div class="col-md-2">
             <label for="pepProyect">PEP</label>
-            <input class="form-control" type="text" name="pepProyect" #pepProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.pepProyect" placeholder="OB">
+            <input class="form-control form-control-sm" type="text" name="pepProyect" #pepProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.pepProyect" placeholder="OB">
           </div>
           <div class="col-md-2">
             <label for="opProyect">OP</label>
-            <input class="form-control" type="text" name="opProyect" #opProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.opProyect" placeholder="OB">
+            <input class="form-control form-control-sm" type="text" name="opProyect" #opProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.opProyect" placeholder="OB">
           </div>
           <div class="col-md-2">
             <label for="oeiProyect">OEI</label>
-            <input class="form-control" type="text" name="oeiProyect" #oeiProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.oeiProyect" placeholder="OB">
+            <input class="form-control form-control-sm" type="text" name="oeiProyect" #oeiProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.oeiProyect" placeholder="OB">
           </div>
           <div class="col-md-2">
             <label for="oeProyect">OE</label>
-            <input class="form-control" type="text" name="oeProyect" #oeProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.oeProyect" placeholder="OB">
+            <input class="form-control form-control-sm" type="text" name="oeProyect" #oeProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.oeProyect" placeholder="OB">
           </div>
          </div>
          <div class="row">
            <div class="col-md-12">
              <label for="observacionProyect">Observación:</label>
-             <textarea class="form-control" name="observacionProyect" #observacionProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.observacionProyect" placeholder="Observación"></textarea>
+             <textarea class="form-control form-control-sm" name="observacionProyect" #observacionProyect="ngModel" [(ngModel)]="proyectoService.selectedProyecto.observacionProyect" placeholder="Observación"></textarea>
            </div>
          </div>
          <input type="hidden" name="status" #status="ngModel" [(ngModel)]="proyectoService.selectedProyecto.status">
          <input type="hidden" name="etapas" #etapas="ngModel" [(ngModel)]="proyectoService.selectedProyecto.etapas">
         
-         <input type="hidden" name="transcurrido" #transcurrido="ngModel" [(ngModel)]="proyectoService.selectedProyecto.transcurrido">
-         <hr>
-         <button class="btn btn-primary mr-2" [disabled]="!proyectoForm.valid" (click)="createProyectos(proyectoForm)"><i class="fas fa-check"></i> Guardar</button>
-         <button class="btn btn-danger" [disabled]="!proyectoForm.valid" (click)="limpiar()"><i class="far fa-times-circle"></i> Cancelar</button>
 
-         <button class="btn btn-success ml-3 float-right" routerLink="/listaproyectos" routerLinkActive="active"><i class="fas fa-list"></i> Ver Proyectos</button>
+         <hr>
+         <button class="btn btn-primary btn-sm mr-2" [disabled]="!proyectoForm.valid" (click)="createProyectos(proyectoForm)"><i class="fas fa-check"></i> Guardar</button>
+         <button class="btn btn-danger btn-sm" [disabled]="!proyectoForm.valid" (click)="limpiar()"><i class="far fa-times-circle"></i> Cancelar</button>
+
+         <button class="btn btn-success btn-sm ml-3 float-right" routerLink="/listaproyectos" routerLinkActive="active"><i class="fas fa-list"></i> Ver Proyectos</button>
         </form>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule } from '@angular/common/http'
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ExcelService} from './services/excel.service';
 import { ToastrModule } from 'ngx-toastr';
@@ -30,8 +30,10 @@ import { App2Component } from './components/app2/app2.component';
 import { ListavencidosComponent } from './components/listavencidos/listavencidos.component';
 import { ListavencerComponent } from './components/listavencer/listavencer.component';
 import { VerproyectoComponent } from './components/verproyecto/verproyecto.component'; 
+import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 
 import {AuthGuard} from './auth.guard';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
@@ -54,16 +56,19 @@ import {AuthGuard} from './auth.guard';
     App2Component,
     ListavencidosComponent,
     ListavencerComponent,
-    VerproyectoComponent
+    VerproyectoComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     routing,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     NgxPaginationModule,
+    MatDatepickerModule, MatNativeDateModule
 
   ],
   providers: [

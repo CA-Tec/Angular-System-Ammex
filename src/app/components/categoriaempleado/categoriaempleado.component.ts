@@ -3,6 +3,8 @@ import {CatempleadoService} from '../../services/catempleado.service';
 import { ToastrService } from 'ngx-toastr';
 //import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
+import Swal from 'sweetalert2';
+
 import {NgForm} from '@angular/forms';
 import { Catempleado } from 'src/app/model/catempleados';
 
@@ -41,8 +43,7 @@ export class CategoriaempleadoComponent implements OnInit {
     if(form.value._id){
       this.catEmpleadosService.putCatEmpleado(form.value).subscribe(
         res =>{
-          this.msj ='Registro Actualizado';
-          this.toastr.info(this.msj);
+          this.msjUpdate();
           form.reset();
           this.getCatEmpleados();
         },
@@ -51,10 +52,10 @@ export class CategoriaempleadoComponent implements OnInit {
     }else{
       this.catEmpleadosService.createdCatEmpleado(form.value).subscribe(
         res => {
-            this.getCatEmpleados();
-            this.msj = 'Categoria Agregada';
-            this.toastr.success(this.msj);
+          this.msjConfirm();
+
             form.reset();
+            this.getCatEmpleados();
       },
       err => console.error(err)
       );
@@ -63,16 +64,31 @@ export class CategoriaempleadoComponent implements OnInit {
   }
 
   deleteCatEmpleado(_id:string|undefined){
-    if(confirm("¿Seguro de eliminar el registro?")){
-      this.catEmpleadosService.deleteCatEmpleado(_id).subscribe(
-        res =>{
-          this.getCatEmpleados();
-          this.msj='Categoria Eliminada';
-          this.toastr.error(this.msj);
-        },
-        err=> console.log(err)
-      )
-    }
+
+    Swal.fire({
+      title: '¿Desea eliminar la Categoria de Empleado?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#c23616',
+      cancelButtonColor: '#353b48',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      console.log(result);
+      if (result.value == true) {
+        this.catEmpleadosService.deleteCatEmpleado(_id).subscribe(
+          res =>{
+            this.getCatEmpleados();
+          },
+          err=> console.log(err)
+        )
+        Swal.fire(
+          'Categoria Empleado eliminada',
+          '',
+          'success'
+        )
+      }
+    })
+
   }
 
   updateCatEmpleado(catempleado:Catempleado){
@@ -85,6 +101,28 @@ export class CategoriaempleadoComponent implements OnInit {
     this.getCatEmpleados();
   }
 
+
+  msjConfirm(){
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Categoria Empleado Agregada',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
+  }
+
+  msjUpdate(){
+    Swal.fire({
+      position: 'center',
+      icon: 'info',
+      title: 'Categoria Empleado Actualizada',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
+  }
 
 
 }

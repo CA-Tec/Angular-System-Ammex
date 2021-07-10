@@ -1,23 +1,23 @@
 <div class="container-fluid" style="margin-top:68px">
-  
-    <div class="card mt-2">
-      <div class="card-header">
-        <h4><i class="fas fa-male"></i>Agregar empleados</h4>
-      </div>
-      <div class="card-body p-3">
+  <div class="texto">
+    <h3><i class="fa fa-id-card" aria-hidden="true"></i>&nbsp;Agregar Empleado</h3>
+    </div>
+    <main class="mt-2">
         <form #empleadosForm="ngForm">
+          <input type="hidden" name="_id" [(ngModel)]="empleadoServices.selectedEmpleado._id">
+
         <div class="row">
           <div class="col-md-6">
            
             <div class="form-group">
               <label for="nombreEmpleado">Nombre(s):</label>
-              <input type="text" name="nombreEmpleado" class="form-control" #nombreEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.nombreEmpleado" placeholder="Nombre(s)" required>
+              <input type="text" name="nombreEmpleado" class="form-control form-control-sm" #nombreEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.nombreEmpleado" placeholder="Nombre(s)" required>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="apellidosEmpleado">Apellidos(s):</label>
-              <input type="text" name="apellidosEmpleado" class="form-control" #apellidosEmpleado ="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.apellidosEmpleado" placeholder="Apellidos(s)" required>
+              <input type="text" name="apellidosEmpleado" class="form-control form-control-sm" #apellidosEmpleado ="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.apellidosEmpleado" placeholder="Apellidos(s)" required>
             </div>
           </div>
         </div>
@@ -26,7 +26,7 @@
           <div class="col-md-12">
             <div class="form-group ">
               <label for="direccionEmpleado">Dirección:</label>
-              <textarea name="direccionEmpleado" class="form-control" #direccionEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.direccionEmpleado" placeholder="Direccion" ></textarea>
+              <textarea name="direccionEmpleado" class="form-control form-control-sm" #direccionEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.direccionEmpleado" placeholder="Direccion" ></textarea>
             </div>
           </div>
         </div>
@@ -35,19 +35,19 @@
           <div class="col-md-3">
             <div class="form-group">
               <label for="CURPEmpleado">CURP:</label>
-              <input type="text" name="CURPEmpleado" #CURPEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.CURPEmpleado" placeholder="CURP" class="form-control">
+              <input type="text" name="CURPEmpleado" #CURPEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.CURPEmpleado" placeholder="CURP" class="form-control form-control-sm">
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group ">
               <label for="NSSEmpleado">NSS:</label>
-              <input type="number" name="NSSEmpleado" #NSSEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.NSSEmpleado" placeholder="NSS" class="form-control">
+              <input type="number" name="NSSEmpleado" #NSSEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.NSSEmpleado" placeholder="NSS" class="form-control form-control-sm">
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <label for="estudiosEmpleado">Grado de estudios:</label>
-              <select name="estudiosEmpleado" class="form-control" #estudiosEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.estudiosEmpleado">
+              <select name="estudiosEmpleado" class="form-control form-control-sm" #estudiosEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.estudiosEmpleado">
                 <option value="" selected>Grado de estudio</option>
                 <option value="primaria">Primaria</option>
                 <option value="secundario">Secundaria</option>
@@ -57,33 +57,39 @@
             </div>
           </div>
           <div class="col-md-3">
-            <div class="form-group">
-              <label for="fNacEmpleado">Fecha de nacimiento:</label>
-              <input type="date" name="fNacEmpleado" #fNacEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.fNacEmpleado" class="form-control">
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4">
             <label for="Categoria">Categoria:</label>
-            <select name="Categoria" class="form-control" #Categoria="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.Categoria" required>
+            <select name="Categoria" class="form-control form-control-sm" #Categoria="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.Categoria" required>
               <option value="" selected>Seleccione una categoria</option>
               <option *ngFor="let dato of datos" value="{{dato.nombreCategoria}}">{{dato.nombreCategoria}}</option>
             </select>
           </div>
-          <div class="col-md-4">
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="fNacEmpleado">Fecha de nacimiento:</label>
+              <input matInput [matDatepicker]="picker" name="fNacEmpleado" #fNacEmpleado="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.fNacEmpleado" class="form-control form-control-sm" style="display:inline; width: 200px;">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </div>
+
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
             <label for="fechaIngreso">Fecha de Ingreso</label>
-            <input type="date" name="fechaIngreso" id="" #fechaIngreso="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.fechaIngreso" class="form-control" >
+            <input matInput [matDatepicker]="picker2" name="fechaIngreso"  #fechaIngreso="ngModel" [(ngModel)]="empleadoServices.selectedEmpleado.fechaIngreso" class="form-control form-control-sm" style="display:inline;width: 200px;">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </div>
           </div>
         </div>
         <hr>
-        <button type="submit" class="btn btn-primary " [disabled]="!empleadosForm.valid" (click)="createEmpleados(empleadosForm)"><i class="fas fa-check"></i>Guardar</button>
-        <button class="btn btn-danger ml-3"><i class="far fa-times-circle"></i>Carcelar</button>
+        <button type="submit" class="btn btn-primary btn-sm" [disabled]="!empleadosForm.valid" (click)="createEmpleados(empleadosForm)"><i class="fas fa-check"></i>&nbsp;Guardar</button>
+        <button class="btn btn-danger btn-sm ml-3" [disabled]="!empleadosForm.valid" (click)="limpiar(empleadosForm)"><i class="far fa-times-circle"></i>&nbsp;Carcelar</button>
 
-        <button class="btn btn-success ml-3 float-right" routerLink="/listaEmpleados" routerLinkActive="active"><i class="fas fa-list"></i>Ver Empleados</button>
+        <button class="btn btn-success btn-sm ml-3 float-right" routerLink="/listaEmpleados" routerLinkActive="active"><i class="fas fa-list"></i>&nbsp;Ver Empleados</button>
       </form>
-      </div>
-    </div>
-  
+    </main>
 </div>

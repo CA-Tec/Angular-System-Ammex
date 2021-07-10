@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {CatDocumentosService} from '../../services/cat-documentos.service';
 import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+
+import Swal from 'sweetalert2';
+
 import { CatDocumentos } from 'src/app/model/cat-documentos';
 @Component({
   selector: 'app-cat-documentos',
@@ -36,8 +39,7 @@ export class CatDocumentosComponent implements OnInit {
     if(form.value._id){
       this.catDocService.putCatDoc(form.value).subscribe(
         res=>{
-          this.msj='Documento Actualizado';
-          this.toastr.info(this.msj);
+          this.msjUpdate();
           this.getCatDocumento();
           form.reset();
         },
@@ -46,8 +48,7 @@ export class CatDocumentosComponent implements OnInit {
     }else{
       this.catDocService.createCatDoc(form.value).subscribe(
         res=>{
-          this.msj='Documento Agregado';
-          this.toastr.success(this.msj);
+          this.msjConfirm();
           this.getCatDocumento();
           form.reset();
         },
@@ -62,17 +63,59 @@ export class CatDocumentosComponent implements OnInit {
   }
 
   deleteCatDocumento(_id:string){
-    if(confirm('¿Desea eliminar el Documento?')){
-      this.catDocService.deleteCatDoc(_id).subscribe(
-        res =>{
-          this.msj='Documento eliminado';
-          this.toastr.error(this.msj);
-          this.getCatDocumento();
-        },
-        err =>console.log(err)
-      )
-    }
 
+    Swal.fire({
+      title: '¿Desea eliminar la Categoria de Documento?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#c23616',
+      cancelButtonColor: '#353b48',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      console.log(result);
+      if (result.value == true) {
+        this.catDocService.deleteCatDoc(_id).subscribe(
+          res =>{
+  
+            this.getCatDocumento();
+          },
+          err =>console.log(err)
+        )
+        Swal.fire(
+          'Categoria Documento eliminada',
+          '',
+          'success'
+        )
+      }
+    })
+
+
+
+
+
+  }
+
+
+  msjConfirm(){
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Categoria Documento Agregada',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
+  }
+
+  msjUpdate(){
+    Swal.fire({
+      position: 'center',
+      icon: 'info',
+      title: 'Categoria Documento Actualizada',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
   }
 
 }

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Ciudad} from '../model/ciudad';
 import {Division} from '../model/division';
+import {RUTA} from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CiudadService {
-  URL_API = 'http://165.232.131.165/';
+  URL_API = RUTA;
   constructor(private http:HttpClient) { }
 
   selectedDiviion:Division={

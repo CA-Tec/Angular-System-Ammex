@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import {Documento} from '../model/documento';
+import {RUTA} from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentoService {
-  URL_API = 'http://165.232.131.165/';
+  URL_API = RUTA;
   documentSelected:Documento ={
     urlDoc:'',
     nombreDoc:'',
@@ -25,5 +26,9 @@ export class DocumentoService {
    fd.append('catDocumento',catDocumento);
    fd.append('nombreDoc',archivo);
     return this.http.post(this.URL_API+'documento',fd);
+  }
+
+  delDoc(_id){
+    return this.http.delete(this.URL_API+'documento/'+_id)
   }
 }

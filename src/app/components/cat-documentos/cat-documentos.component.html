@@ -1,36 +1,34 @@
 <div class="container-fluid" style="margin-top:68px">
+  <div class="texto">
+    <h3><i class="fa fa-id-badge" aria-hidden="true"></i>&nbsp; Agregar Categoria Documento</h3>
+  </div>
   <div class="row">
     <div class="col-md-4">
-      <div class="card mt-2">
-        <div class="card-header">
-          <h4><i class="far fa-file-alt"></i> Agregar Documento</h4>
-        </div>
-        <div class="card-body">
+      <main class="mt-2">
           <form #catDoc="ngForm">
             <input type="hidden" name="_id" [(ngModel)]="catDocService.selectedCatDoc._id">
             <div class="form-group">
               <label for="nombreDoc">Documento:</label>
-              <input class="form-control" type="text" name="nombreDoc" #nombreDoc="ngModel" [(ngModel)]="catDocService.selectedCatDoc.nombreDoc" placeholder="Nombre del documento" required>
+              <input class="form-control form-control-sm" type="text" name="nombreDoc" #nombreDoc="ngModel" [(ngModel)]="catDocService.selectedCatDoc.nombreDoc" placeholder="Nombre del documento" required>
             </div>
             <div class="form-group">
               <label for="aliasDoc">Alias:</label>
-              <input class="form-control" type="text" name="aliasDoc" #aliasDoc="ngModel" [(ngModel)]="catDocService.selectedCatDoc.aliasDoc" placeholder="Alias" required>
+              <input class="form-control form-control-sm" type="text" name="aliasDoc" #aliasDoc="ngModel" [(ngModel)]="catDocService.selectedCatDoc.aliasDoc" placeholder="Alias" required>
             </div>
             <div class="form-group">
               <label for="observacionDoc">Observación:</label>
-              <textarea class="form-control" type="text" name="observacionDoc" #observacionDoc="ngModel" [(ngModel)]="catDocService.selectedCatDoc.observacionDoc" placeholder="Observación"></textarea>
+              <textarea class="form-control form-control-sm" type="text" name="observacionDoc" #observacionDoc="ngModel" [(ngModel)]="catDocService.selectedCatDoc.observacionDoc" placeholder="Observación"></textarea>
             </div>
-            <button class="btn btn-primary mr-2" [disabled]="!catDoc.valid" (click)="addCatDocumento(catDoc)"><i class="fas fa-check"></i> Agregar</button>
-            <button class="btn btn-danger" [disabled]="!catDoc.valid" (click)="resetForm(catDoc)"><i class="far fa-times-circle"></i> Cancelar</button>
+            <button class="btn btn-primary btn-sm mr-2" [disabled]="!catDoc.valid" (click)="addCatDocumento(catDoc)"><i class="fas fa-check"></i> Agregar</button>
+            <button class="btn btn-danger btn-sm" [disabled]="!catDoc.valid" (click)="resetForm(catDoc)"><i class="far fa-times-circle"></i> Cancelar</button>
           </form>
-        </div>
-      </div>
+        </main>
     </div>
     <div class="col-md-8 mt-2">
-      <table class="table">
+      <section>
+      <table class="table table-striped table-bordered mt-2">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#</th>
             <th score="col">Documento</th>
             <th score="col">Alias</th>
             <th score="col">Observación</th>
@@ -38,22 +36,22 @@
           </tr>
         </thead>
         <tbody >
-          <tr *ngFor="let dato of datos  let i = index">
-            <td>{{i + 1}}</td>
+          <tr *ngFor="let dato of datos">
+           
             <td>{{dato.nombreDoc}}</td>
             <td>{{dato.aliasDoc}}</td>
             <td>{{dato.observacionDoc}}</td>
 
             <td >
 
-                <button class="btn btn-primary mr-2" (click)="updateCatDocumento(dato)"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger" (click)="deleteCatDocumento(dato._id)"><i class="far fa-trash-alt"></i></button>
+                <button class="btn btn-primary btn-sm mr-2" (click)="updateCatDocumento(dato)"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm" (click)="deleteCatDocumento(dato._id)"><i class="far fa-trash-alt"></i></button>
   
             </td>
           </tr>
     
         </tbody>
       </table>
-   
+    </section>
     </div>
   </div>
 </div>

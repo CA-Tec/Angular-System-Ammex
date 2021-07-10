@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Usuarios} from '../model/usuarios';
+import {RUTA} from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
-  URL_API = 'http://165.232.131.165/';
+  URL_API = RUTA;
   constructor(private http:HttpClient) { }
 
   selectedUsuario:Usuarios={

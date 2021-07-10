@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {RUTA} from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConsultproyectService {
-  URL_API = 'http://165.232.131.165/';
+  URL_API = RUTA;
   constructor(private http:HttpClient) { }
 
   getTotales(){
@@ -18,5 +19,9 @@ export class ConsultproyectService {
 
   getVencer(){
     return this.http.get<any>(this.URL_API+'vencer');
+  }
+
+  getTerminados(){
+    return this.http.get<any>(this.URL_API+'terminados');
   }
 }

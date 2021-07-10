@@ -3,6 +3,9 @@ import {ActivatedRoute,Params} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ProyectosService} from '../../services/proyectos.service';
 import {DocumentoService} from '../../services/documento.service';
+
+import Swal from 'sweetalert2';
+
 import {Router} from '@angular/router';
 
 @Component({
@@ -88,6 +91,37 @@ export class VerproyectoComponent implements OnInit {
         this.document = res;
       }, err => console.log(err)
     )
+  }
+
+  deleteDoc(id:string){
+
+    
+    Swal.fire({
+      title: '¿Desea eliminar el Documento?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#c23616',
+      cancelButtonColor: '#353b48',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      console.log(result);
+      if (result.value == true) {
+        this.documentoService.delDoc(id).subscribe(
+          res =>{
+            console.log(res);
+            this.getDocument();
+          }
+        )
+        Swal.fire(
+          'Documento eliminado',
+          '',
+          'success'
+        )
+      }
+    })
+
+
+
   }
 
 }

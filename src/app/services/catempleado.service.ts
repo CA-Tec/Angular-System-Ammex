@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders} from '@angular/common/http';
+import {RUTA} from './api.service';
 
 import { Catempleado } from '../model/catempleados';
 import { Empleados } from '../model/empleados';
@@ -8,7 +9,7 @@ import { Empleados } from '../model/empleados';
   providedIn: 'root'
 })
 export class CatempleadoService {
-  URL_API = 'http://165.232.131.165/';
+  URL_API = RUTA;
 
 
 
