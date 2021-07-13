@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {Proyectos} from '../model/proyectos';
 import {HttpClient} from '@angular/common/http';
 import {RUTA} from './api.service';
-import {CatDocumentos} from '../model/cat-documentos';
+import {DataUserService} from './data-user.service';
+
 
 
 
@@ -12,7 +13,10 @@ import {CatDocumentos} from '../model/cat-documentos';
 export class ProyectosService {
   URL_API = RUTA;
 
-  constructor(private http:HttpClient) { }
+  constructor(
+    private http:HttpClient,
+    public datauserService:DataUserService
+    ) { }
 
   selectedProyecto:Proyectos={
     folio:'',
@@ -37,7 +41,7 @@ export class ProyectosService {
     observacionProyect:'Ninguno',
     status:'ACTIVO',
     etapas:'Captura',
-    usuario:'',
+    usuario: '',
    
   }
 
@@ -87,6 +91,10 @@ export class ProyectosService {
   deleteProyect(id:string){
     return this.http.delete(this.URL_API+'proyectos/'+id);
 
+  }
+
+  updateProyect(proyectos:Proyectos){
+    return this.http.put(this.URL_API+'proyectos/'+proyectos._id,proyectos)
   }
 
   //obtener Documentos por proyecto

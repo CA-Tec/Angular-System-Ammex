@@ -1,11 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {ExcelService} from '../services/excel.service';
+
+import {DataUserService} from '../services/data-user.service';
 
 @Pipe({
   name: 'filter'
 })
 export class FilterPipe implements PipeTransform {
-constructor( public excelServices:ExcelService){
+constructor( 
+  public dataUserServices:DataUserService
+  ){
 
 }
 
@@ -21,10 +24,11 @@ constructor( public excelServices:ExcelService){
        post.etapas.toLowerCase().indexOf(search.toLowerCase())> -1 ||
        post.producto.toLowerCase().indexOf(search.toLowerCase())> -1
        ){
-        
+         
         resultPosts.push(post);
       }
     }
+    //this.dataUserServices.busqueda= resultPosts;
     console.log(resultPosts);
     return resultPosts.slice(page,page + 10);
     

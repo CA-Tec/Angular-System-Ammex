@@ -1,4 +1,5 @@
 <div class="container-fluid" style="margin-top:70px">
+  <p>{{user}} {{toke}}</p>
   <div class="texto">
   <h3><i class="fa fa-plus" aria-hidden="true" ></i>&nbsp; Nuevo Proyecto</h3>
   </div>
@@ -26,8 +27,8 @@
            <div class="col-md-4">
             <div class="form-group">
               <label for="supervisor">Supervisor</label>
-              <select class="form-control form-control-sm" name="supervisor" #supervisor="ngModel"  [(ngModel)]="proyectoService.selectedProyecto.supervisor" required >
-                <option value="" active>Selecciona Supervisor</option>
+              <select  class="form-control form-control-sm" name="supervisor" #supervisor="ngModel"  [(ngModel)]="proyectoService.selectedProyecto.supervisor" required >
+                <option value="" disabled selected hidden>Selecciona Supervisor</option>
                 <option  *ngFor="let supervi of super" value="{{supervi.nombreEmpleado + ' ' + supervi.apellidosEmpleado}}">{{supervi.nombreEmpleado+' '+ supervi.apellidosEmpleado}}</option>
               </select>
             </div>
@@ -125,11 +126,12 @@
          </div>
          <input type="hidden" name="status" #status="ngModel" [(ngModel)]="proyectoService.selectedProyecto.status">
          <input type="hidden" name="etapas" #etapas="ngModel" [(ngModel)]="proyectoService.selectedProyecto.etapas">
+         <input type="hidden" name="usuario" #usuario="ngModel" [(ngModel)]="proyectoService.selectedProyecto.usuario">
         
 
          <hr>
          <button class="btn btn-primary btn-sm mr-2" [disabled]="!proyectoForm.valid" (click)="createProyectos(proyectoForm)"><i class="fas fa-check"></i> Guardar</button>
-         <button class="btn btn-danger btn-sm" [disabled]="!proyectoForm.valid" (click)="limpiar()"><i class="far fa-times-circle"></i> Cancelar</button>
+         <button class="btn btn-danger btn-sm" [disabled]="!proyectoForm.valid" (click)="limpiar(proyectoForm)"><i class="far fa-times-circle"></i> Cancelar</button>
 
          <button class="btn btn-success btn-sm ml-3 float-right" routerLink="/listaproyectos" routerLinkActive="active"><i class="fas fa-list"></i> Ver Proyectos</button>
         </form>

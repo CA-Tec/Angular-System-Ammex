@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ProyectosService} from '../../services/proyectos.service';
-import {ExcelService} from '../../services/excel.service';
 
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -9,7 +7,10 @@ import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 
 import {Proyectos} from '../../model/proyectos';
-import { element } from '@angular/core/src/render3';
+
+import {ProyectosService} from '../../services/proyectos.service';
+import {ExcelService} from '../../services/excel.service';
+import {DataUserService} from '../../services/data-user.service';
 declare let pdfMake:any;
 
 
@@ -33,8 +34,8 @@ public excelSearch=[];
 
   constructor(public router:Router, 
     public proyectoService: ProyectosService, 
-    public excelService:ExcelService
-
+    public excelService:ExcelService,
+    public dataUserService:DataUserService
     ) { }
 
   ngOnInit() {
@@ -49,7 +50,6 @@ public excelSearch=[];
         this.proyecto = res;
       }
     )
-    console.log("Arreglo" + this.resultPosts);
   }
 
   deleteProyect(_id:string | undefined ){
@@ -82,6 +82,7 @@ public excelSearch=[];
 
   updateProyect(proyectos:Proyectos){
     this.proyectoService.selectedProyecto = proyectos;
+    console.log(proyectos.folio);
    /* this.proyectoService.selectedProyecto.supervisorTelmex = proyectos.supervisorTelmex;
     this.proyectoService.selectedProyecto.supervisor = proyectos.supervisor;
     this.proyectoService.selectedProyecto.division = proyectos.division;
@@ -177,7 +178,6 @@ public excelSearch=[];
     console.log(search);
     this.page=0;
     this.search = search;
-    console.log("Arreglo" + this.resultPosts);
   }
 
   onChange(proy:string,isChecked:boolean){
@@ -203,6 +203,9 @@ public excelSearch=[];
     }
   }
 
+  verdatos(){
+    console.log(this.dataUserService.busqueda)
+  }
 
   
   msjBusqueda(){

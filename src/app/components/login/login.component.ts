@@ -3,6 +3,7 @@ import {LoginService} from '../../services/login.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgForm} from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataUserService } from 'src/app/services/data-user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,12 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   public datos;
-  constructor(public loginService:LoginService, public router:Router, public toastr:ToastrService) { }
+  constructor(
+    public loginService:LoginService, 
+    public router:Router, 
+    public toastr:ToastrService,
+    public dataUserServices:DataUserService
+    ) { }
 
   ngOnInit() {
     this.limpiar();
@@ -37,7 +43,9 @@ export class LoginComponent implements OnInit {
           }
           console.log(this.datos);
           localStorage.setItem('token',this.datos.token);
+          this.dataUserServices.token = this.datos.token;
           localStorage.setItem('User',this.datos.buscarUser.nombreUsuario);
+          this.dataUserServices.usuario = this.datos.buscarUser.nombreUsuario;
           this.router.navigateByUrl('/');
           form.reset();
       }

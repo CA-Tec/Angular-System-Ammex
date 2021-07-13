@@ -1,14 +1,13 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 
 import * as moment from 'moment';
 
-import{ToastrService} from 'ngx-toastr';
-
-
 import {ProyectosService} from '../../services/proyectos.service';
+import { DataUserService } from '../../services/data-user.service';
+
 
 
 @Component({
@@ -17,6 +16,8 @@ import {ProyectosService} from '../../services/proyectos.service';
   styleUrls: ['./proyectos.component.css']
 })
 export class ProyectosComponent implements OnInit {
+
+
 public dura;
 public inicio;
 public datos;
@@ -26,9 +27,12 @@ public ciudades;
 public super;
 public msj;
 public folioP;
+public user;
+public toke;
   constructor(
     public proyectoService:ProyectosService, 
-    public router:Router
+    public router:Router,
+    public dataUserService:DataUserService
     ) { }
 
   ngOnInit() {
@@ -36,7 +40,9 @@ public folioP;
     this.getDivision();
     this.getProducto();
     this.getSupervisor();
-    this.getFolioProyect();
+   
+
+    
   }
 
   calcular(form:NgForm){
@@ -142,28 +148,45 @@ getSupervisor(){
 //Proyectos
 
 createProyectos(form:NgForm){
-  console.log(form.value);
-  this.proyectoService.createProyecto(form.value).subscribe(
-    res =>{
-      this.msjConfirmacion();
-      this.router.navigate(['/proyectos']);
+  if(form.value._id){
+    this.proyectoService.updateProyect(form.value).subscribe(
+      res=>{
+       this.msjActualizar();
+        form.resetForm();
+        this.router.navigate(['/listaproyectos']);
+      },err => console.log(err)
+    )
+  }else{
+    this.proyectoService.createProyecto(form.value).subscribe(
+      res =>{
+        this.msjConfirmacion();
+       
+        form.resetForm();
+        this.router.navigate(['/listaproyectos']);
+  
+      }
+    ) 
+  }
 
-    }
-  ) 
 }
 
-limpiar(){
- this.router.navigate(['/proyectos'])
+limpiar(form:NgForm){
+  form.resetForm();
 }
 
 getFolioProyect(){
+     
   this.proyectoService.getFolio().subscribe(
     res=>{
-      this.folioP =res;
-      console.log(this.folioP.folio, this.folioP.ultFolio);
-      this.proyectoService.selectedProyecto.folio = this.folioP.folio;
+   
+        this.folioP =res;
+        console.log(this.folioP.folio);
+       this.proyectoService.selectedProyecto.folio = this.folioP.folio;
+      
+
     },err=> console.log(err)
   )
+     
   }
 
   msjConfirmacion(){
@@ -171,6 +194,17 @@ getFolioProyect(){
       position: 'center',
       icon: 'success',
       title: 'Proyecto Agregado.',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    
+  }
+
+  msjActualizar(){
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Proyecto Actualizado.',
       showConfirmButton: false,
       timer: 2000
     })
